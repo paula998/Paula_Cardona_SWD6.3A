@@ -59,6 +59,13 @@ namespace Paula_Cardona_SWD6._3A
             }
             );
 
+
+            services.AddScoped<PubSubAccess>(
+            x => {
+                return new PubSubAccess(projectId);
+            }
+            );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

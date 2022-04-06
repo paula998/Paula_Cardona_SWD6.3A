@@ -16,9 +16,11 @@ namespace Paula_Cardona_SWD6._3A.Controllers
     public class UsersController : Controller
     {
         private readonly FireStoreDataAccess fireStore;
+        private readonly PubSubAccess pubsub;
 
-        public UsersController(FireStoreDataAccess _firestore)
+        public UsersController(FireStoreDataAccess _firestore, PubSubAccess _pubsub)
         {
+            pubsub = _pubsub;
             fireStore = _firestore;
         }
 
@@ -53,6 +55,10 @@ namespace Paula_Cardona_SWD6._3A.Controllers
                 msg.AttachmentUri = $"https://storage.googleapis.com/{bucketName}/{ msg.Id + Path.GetExtension(attachment.FileName)}";
             }
             await fireStore.AddMessage(User.Claims.ElementAt(4).Value, msg);
+
+            await pubsub.Publish(msg);
+
+
             return RedirectToAction("List");
         }
 
