@@ -24,13 +24,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Send">Upload a file</a>
+
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="List">Show Your Info</a>
+
+                        }
                     </ul>
                 </div>
                 <div class="justify-content-end">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <span>@User.Claims.ElementAt(4).Value</span>
-                        <a href = "/Home/Logout" > Log Out</a>
+                        <a href="/Home/Logout"> Log Out</a>
+
                     }
                     else
                     {

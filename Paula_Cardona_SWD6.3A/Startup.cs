@@ -1,3 +1,4 @@
+using DataAccess;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +18,7 @@ namespace Paula_Cardona_SWD6._3A
     {
         public Startup(IConfiguration configuration)
         {
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"E:\Paula\Paulene\Level 6 Third Year\Second Semester\Assignments\Programming for the cloud\vernal-layout-340609-1d035cefb454.json");
             Configuration = configuration;
         }
 
@@ -40,6 +42,16 @@ namespace Paula_Cardona_SWD6._3A
 
             services.AddRazorPages();
             services.AddControllersWithViews();
+
+            string projectId = Configuration["Project"];
+
+            services.AddScoped<FireStoreDataAccess>(
+                x =>
+                {
+                    return new FireStoreDataAccess(projectId);
+                }
+                );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
