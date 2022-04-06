@@ -52,6 +52,13 @@ namespace Paula_Cardona_SWD6._3A
                 }
                 );
 
+            services.AddScoped<CacheDataAccess>(
+            x =>
+            {
+                return new CacheDataAccess("redis-17679.c98.us-east-1-4.ec2.cloud.redislabs.com:17679,password=EndztbRUBUVqXSUyghEe7zkcHk0JUhIQ");
+            }
+            );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
