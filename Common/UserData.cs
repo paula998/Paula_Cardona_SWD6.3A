@@ -18,7 +18,13 @@ namespace Common
 
     [FirestoreProperty]
      public string Message { get; set; }
+
+    [FirestoreProperty]
+    public string NumberOfCredits { get; set; }
     }
 
-  
 }
+
+
+  
+

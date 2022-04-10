@@ -25,13 +25,28 @@ namespace Paula_Cardona_SWD6._3A
             Configuration = configuration;
         }
 
-        SecretManager secret = new SecretManager();
-
+      
         public IConfiguration Configuration { get; }
+
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string projectId = Configuration["Project"];
+
+
+            SecretManagerServiceClient client = SecretManagerServiceClient.Create();
+
+            SecretVersionName secretVersionName = new SecretVersionName(projectId, "secretkey_ouathlogin", "1");
+
+            AccessSecretVersionResponse result = client.AccessSecretVersion(secretVersionName);
+
+            // Convert the payload to a string. Payloads are bytes by default.
+            String payload = result.Payload.Data.ToStringUtf8();
+
+
+
             services
          .AddAuthentication(options =>
          {
@@ -42,13 +57,13 @@ namespace Paula_Cardona_SWD6._3A
          .AddGoogle(options =>
         { 
              options.ClientId = "529434771206-k5lph18h349pb8tm8ndm44nraicg6t8i.apps.googleusercontent.com";
-            options.ClientSecret = "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";
+            options.ClientSecret = payload;
         });
 
             services.AddRazorPages();
             services.AddControllersWithViews();
 
-            string projectId = Configuration["Project"];
+          
 
             services.AddScoped<FireStoreDataAccess>(
                 x =>

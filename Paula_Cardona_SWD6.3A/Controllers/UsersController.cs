@@ -24,10 +24,6 @@ namespace Paula_Cardona_SWD6._3A.Controllers
             fireStore = _firestore;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         [HttpGet]
         [Authorize]
@@ -35,6 +31,26 @@ namespace Paula_Cardona_SWD6._3A.Controllers
         {
             return View();
         }
+
+
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {
+            Common.User myUser = await fireStore.GetUser(User.Claims.ElementAt(4).Value);
+            if (myUser == null)
+                return View(new Common.User() { Email = User.Claims.ElementAt(4).Value });
+            else return View(myUser);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Register(User user)
+        {
+            user.Email = User.Claims.ElementAt(4).Value;
+            await fireStore.AddUser(user);
+
+            return RedirectToAction("Index");
+        }
+
 
         [Authorize][HttpPost]
         public async Task<IActionResult> Send(UserData msg, IFormFile attachment)
