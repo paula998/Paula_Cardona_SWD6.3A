@@ -1,4 +1,6 @@
+using Common;
 using DataAccess;
+using Google.Cloud.SecretManager.V1;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
@@ -16,11 +18,14 @@ namespace Paula_Cardona_SWD6._3A
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        
+        public Startup(IConfiguration configuration, IWebHostEnvironment host)
         {
-            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"E:\Paula\Paulene\Level 6 Third Year\Second Semester\Assignments\Programming for the cloud\vernal-layout-340609-1d035cefb454.json");
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", host.ContentRootPath + @"/vernal-layout-340609-1d035cefb454.json");
             Configuration = configuration;
         }
+
+        SecretManager secret = new SecretManager();
 
         public IConfiguration Configuration { get; }
 
@@ -35,10 +40,10 @@ namespace Paula_Cardona_SWD6._3A
          })
          .AddCookie()
          .AddGoogle(options =>
-         {
+        { 
              options.ClientId = "529434771206-k5lph18h349pb8tm8ndm44nraicg6t8i.apps.googleusercontent.com";
-             options.ClientSecret = "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";
-         });
+            options.ClientSecret = "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";
+        });
 
             services.AddRazorPages();
             services.AddControllersWithViews();
@@ -53,12 +58,11 @@ namespace Paula_Cardona_SWD6._3A
                 );
 
             services.AddScoped<CacheDataAccess>(
-            x =>
-            {
-                return new CacheDataAccess("redis-17679.c98.us-east-1-4.ec2.cloud.redislabs.com:17679,password=EndztbRUBUVqXSUyghEe7zkcHk0JUhIQ");
-            }
-            );
-
+           x =>
+           {
+               return new CacheDataAccess("redis-17679.c98.us-east-1-4.ec2.cloud.redislabs.com:17679,password=EndztbRUBUVqXSUyghEe7zkcHk0JUhIQ");
+           }
+           );
 
             services.AddScoped<PubSubAccess>(
             x => {
@@ -71,16 +75,20 @@ namespace Paula_Cardona_SWD6._3A
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
+            app.UseDeveloperExceptionPage();
+            app.UseHsts();
+
+
+           // if (env.IsDevelopment())
+            //{
+              //  app.UseDeveloperExceptionPage();
+           // }
+            //else
+            //{
+               // app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+               // app.UseHsts();
+           // }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -96,6 +104,9 @@ namespace Paula_Cardona_SWD6._3A
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
         }
+
     }
 }

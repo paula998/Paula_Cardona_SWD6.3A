@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paula_Cardona_SWD6.3A", "Paula_Cardona_SWD6.3A\Paula_Cardona_SWD6.3A.csproj", "{F7D08331-C426-4992-B8B4-3082B68BE005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaulaCardonaSWD63A", "Paula_Cardona_SWD6.3A\PaulaCardonaSWD63A.csproj", "{F7D08331-C426-4992-B8B4-3082B68BE005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{E2278AF5-398F-4823-8609-70FCEC39C350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{E2278AF5-398F-4823-8609-70FCEC39C350}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{C5D9B9AD-62D1-4661-86A4-5CAF0411284B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{C5D9B9AD-62D1-4661-86A4-5CAF0411284B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,6 @@
 ﻿using Common;
 using DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Paula_Cardona_SWD6._3A.Controllers
         {
             _cache = cache;
         }
+
         public IActionResult Create()
         {
             return View();
