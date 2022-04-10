@@ -45,8 +45,6 @@ namespace Paula_Cardona_SWD6._3A
             // Convert the payload to a string. Payloads are bytes by default.
             String payload = result.Payload.Data.ToStringUtf8();
 
-
-
             services
          .AddAuthentication(options =>
          {
@@ -56,7 +54,7 @@ namespace Paula_Cardona_SWD6._3A
          .AddCookie()
          .AddGoogle(options =>
         { 
-             options.ClientId = "529434771206-k5lph18h349pb8tm8ndm44nraicg6t8i.apps.googleusercontent.com";
+            options.ClientId = "529434771206-k5lph18h349pb8tm8ndm44nraicg6t8i.apps.googleusercontent.com";
             options.ClientSecret = payload;
         });
 

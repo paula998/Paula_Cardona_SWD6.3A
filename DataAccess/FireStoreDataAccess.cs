@@ -51,6 +51,12 @@ namespace DataAccess
             return null;
         }
 
+        public async Task<WriteResult> AddCredits(string email, UserData credits)
+        {
+            DocumentReference docRef = db.Collection("users").Document(email).Collection("credits").Document(credits.Id);
+            return await docRef.SetAsync(credits);
+        }
+
         public async Task<List<UserData>> ListMessages(string email)
         {
             //  CollectionReference colRef = db.Collection("users").Document(email).Collection("messages");
@@ -63,6 +69,20 @@ namespace DataAccess
             }
             return messages;
         }
+
+        public async Task<List<UserData>> ListCredits(string email)
+        {
+            //  CollectionReference colRef = db.Collection("users").Document(email).Collection("messages");
+            List<UserData> credits = new List<UserData>();
+            Query messagesQuery = db.Collection("users").Document(email).Collection("credits");
+            QuerySnapshot messagesSnapshot = await messagesQuery.GetSnapshotAsync();
+            foreach (DocumentSnapshot documentSnapshot in messagesSnapshot.Documents)
+            {
+                credits.Add(documentSnapshot.ConvertTo<UserData>());
+            }
+            return credits;
+        }
+
 
         public void UpdateUser(User updatedUser)
         { }

@@ -84,5 +84,15 @@ namespace Paula_Cardona_SWD6._3A.Controllers
             var messages = await fireStore.ListMessages(User.Claims.ElementAt(4).Value);
             return View(messages);
         }
+
+        [Authorize]
+        public async Task<IActionResult> ListCredit()
+        {
+            var credits = await fireStore.ListCredits(User.Claims.ElementAt(4).Value);
+            return View(credits);
+        }
+
+
+
     }
 }

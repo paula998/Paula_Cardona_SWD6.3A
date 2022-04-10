@@ -1,0 +1,33 @@
+﻿@model Common.UserData
+
+@{
+    ViewData["Title"] = "addcredit";
+}
+
+<h1>Add Credits</h1>
+
+<h4>UserData</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="addcredit">
+            <div class="form-group">
+                <label value="No of Credits" asp-for="NumberOfCredits" class="control-label"></label>
+                <input asp-for="NumberOfCredits" class="form-control" />
+                <span asp-validation-for="NumberOfCredits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="BUY CREDITS" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="List">Bulk Credits Offer</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

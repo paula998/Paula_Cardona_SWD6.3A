@@ -14,18 +14,19 @@ namespace Paula_Cardona_SWD6._3A.Controllers
 {
     public class CreditsController : Controller
     {
-            private CacheDataAccess _cache;
-
-
-            public CreditsController(CacheDataAccess cache)
+       private CacheDataAccess _cache;
+       private readonly FireStoreDataAccess _fireStore;
+ 
+        public CreditsController(CacheDataAccess cache, FireStoreDataAccess firestore)
             {
                 _cache = cache;
+                _fireStore = firestore;
             }
 
-            public IActionResult Index()
-            {
-                return View();
-            }
+        public IActionResult Index()
+           {
+               return View();
+           }
 
         [Authorize]
         public IActionResult List()
@@ -34,7 +35,23 @@ namespace Paula_Cardona_SWD6._3A.Controllers
             return View(existing);
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult addcredit()
+        {
+            return View();
+        }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> addcredit(UserData credit)
+        {
+            credit.Id = Guid.NewGuid().ToString();
+            await _fireStore.AddCredits(User.Claims.ElementAt(4).Value, credit);
+            return RedirectToAction("List");
+        }
     }
 
-    }
+ }
+
+  
