@@ -4,7 +4,7 @@
     ViewData["Title"] = "List";
 }
 
-<h1>Buy Credits</h1>
+<h1>List</h1>
 
 <select class="form-control">
     @foreach (var item in Model)
@@ -12,12 +12,6 @@
         <option value="@item.Text">@item.Text</option>
 
     }
-    
-</select>
-<div>
-    <div>
-        <a asp-action="addcredit">Buy Credits</a>
-    </div>
-</div>
 
+</select>
 

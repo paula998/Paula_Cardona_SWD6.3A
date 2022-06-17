@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace Paula_Cardona_SWD6._3A.Controllers
 {
-    public class CreditsController : Controller
+    public class FireStoreController : Controller
     {
        private CacheDataAccess _cache;
        private readonly FireStoreDataAccess _fireStore;
  
-        public CreditsController(CacheDataAccess cache, FireStoreDataAccess firestore)
+        public FireStoreController(CacheDataAccess cache, FireStoreDataAccess firestore)
             {
                 _cache = cache;
                 _fireStore = firestore;
@@ -35,21 +35,7 @@ namespace Paula_Cardona_SWD6._3A.Controllers
             return View(existing);
         }
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult addcredit()
-        {
-            return View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> addcredit(UserData credit)
-        {
-            credit.Id = Guid.NewGuid().ToString();
-            await _fireStore.AddCredits(User.Claims.ElementAt(4).Value, credit);
-            return RedirectToAction("List");
-        }
+       
     }
 
  }

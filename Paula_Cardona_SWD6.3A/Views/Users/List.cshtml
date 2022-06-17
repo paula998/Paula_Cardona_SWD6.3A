@@ -18,29 +18,31 @@
             <th>
                 @Html.DisplayNameFor(model => model.AttachmentUri)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Message)
-            </th>
-            <th></th>
+           
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @if (string.IsNullOrEmpty(item.AttachmentUri) == false)
-                    {
-                        <a href="@item.AttachmentUri">Download</a>}
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Message)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @if (string.IsNullOrEmpty(item.AttachmentUri) == false)
+                {
+                    <a href="@item.AttachmentUri">Download</a>}
+            </td>
+            <td>
+                @if (string.IsNullOrEmpty(item.AttachmentUri) == false)
+                {
+                    <a href="SendDOCToPDF">Convert to PDF</a>}
+            </td>
 
-            </tr>
+        </tr>
         }
+
     </tbody>
 </table>
+
+

@@ -1,5 +1,6 @@
 using Common;
 using DataAccess;
+using Google.Cloud.Diagnostics.AspNetCore3;
 using Google.Cloud.SecretManager.V1;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -35,7 +36,7 @@ namespace Paula_Cardona_SWD6._3A
         {
             string projectId = Configuration["Project"];
 
-
+            //for login
             SecretManagerServiceClient client = SecretManagerServiceClient.Create();
 
             SecretVersionName secretVersionName = new SecretVersionName(projectId, "secretkey_ouathlogin", "1");
@@ -44,6 +45,8 @@ namespace Paula_Cardona_SWD6._3A
 
             // Convert the payload to a string. Payloads are bytes by default.
             String payload = result.Payload.Data.ToStringUtf8();
+
+            services.AddGoogleDiagnosticsForAspNetCore(projectId);
 
             services
          .AddAuthentication(options =>
@@ -82,6 +85,9 @@ namespace Paula_Cardona_SWD6._3A
                 return new PubSubAccess(projectId);
             }
             );
+
+   
+
 
         }
 

@@ -19,13 +19,6 @@ namespace DataAccess
             DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
             if (snapshot.Exists)
             {
-
-                //Console.WriteLine("Document data for {0} document:", snapshot.Id);
-                // Dictionary<string, object> city = snapshot.ToDictionary();
-                //foreach (KeyValuePair<string, object> pair in city)
-                //{
-                //    Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
-                //}
                 return snapshot.ConvertTo<User>();
             }
             else
